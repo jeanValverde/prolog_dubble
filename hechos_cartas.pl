@@ -375,10 +375,41 @@ cardsSetToFormat([Carta|CardsSet], [String|Resultado] ):-
 
 
 
-%cardsSet([a, b, c, d, e, f, g, h, … ], 3, 3, 92175, CS), cardsSetToString(  CS, CS_STR), write(CS_STR).
+%cardsSet([a, b, c, d, e, f, g, h, … ], 3, 3, 92175, CS), cardsSetToString(CS, CS_STR), write(CS_STR).
 cardsSetToString(CardsSet, String):- 
     cardsSetToFormat(CardsSet, CardsString ),
     atomics_to_string(CardsString,String).
+
+
+unionList(_,[],_):-!.
+unionList([CL1|DL1],[CL2|DL2], [CL1,CL2|Resultado] ):-
+    unionList(DL1,DL2, Resultado).
+
+
+getElementByCardsSet([],_):-  !.
+
+getElementByCardsSet([Card|CardsSet] ,[Elemento|_] ) :- 
+    cardsSetNthCard(CardsSet,0,SegundaCarta),
+    unionList(Card,SegundaCarta,Elemento),
+    getElementByCardsSet(CardsSet,Elemento).
+
+
+
+unir([],[],_):-!.
+unir([Car|Cdr],[Car2|Cdr2],[Car,Car2|Resultado]):-
+    unir(Cdr,Cdr2, Resultado ).
+
+
+unir2(Lista,_):- length(Lista,Cantidad), Cantidad = 0, !.
+
+unir2([Lista|Listas],Resultado):-
+    getElement0(Listas,0,Carta),  
+    unir(Lista,Carta,Resultado), 
+    unir2(Listas, Resultado ).
+
+
+%cardsSet([a, b, c, d, e, f, g, h ], 3, 3, 92175, CS), cardsSetMissingCards( CS, CS3).
+%cardsSetMissingCards(CardsSet, CardsSet):- 
 
 
 
@@ -388,5 +419,37 @@ cardsSetFindTotalCards(Carta, TC ):-
     length(Carta,Cantidad),
     f(Cantidad,TC).
 
-%cardsSetToString(CardsSet, CardsSetString):-
-     
+
+
+
+%TDA JUEGO
+
+
+dobbleGame(NumPlayers, CardsSet, Mode, Seed, [NumPlayers, CardsSet, Mode, Seed] ). 
+
+
+getNumPlayer([NumPlayers,_,_,_], NumPlayers). 
+
+getCardsSetByGame([_,CardsSet,_,_], CardsSet).
+
+getModeGame([_,_,Mode,_], Mode).
+
+getSeedGame([_,_,_,Seed], Seed).
+
+
+
+dobbleGameRegister(Usuario, DobbleGame, [ [Usuario|_] , DobbleGame ]). 
+
+
+ 
+
+%dobbleGameWhoseTurnIsIt():-!.
+
+%dobbleGamePlay():-.!
+
+%dobbleGameStatus():-.!
+
+%dobbleGameScore():-.!
+
+%dobbleGameToString():-.!
+
