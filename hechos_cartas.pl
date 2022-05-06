@@ -260,6 +260,8 @@ f(NumE,MaxC):-
     MaxC is ((NumE-1) * (NumE-1)) + (NumE-1) + 1. 
 
 
+push(Elemento, [Elemento|_]).
+
 %FUNCION SI ELEMNTO X PERTENECE A LA LISTA 
 mymember(X,[X|_]) :- !.
 mymember(X,[_|T]) :- mymember(X,T).
@@ -425,8 +427,8 @@ cardsSetFindTotalCards(Carta, TC ):-
 %TDA JUEGO
 
 
-dobbleGame(NumPlayers, CardsSet, Mode, Seed, [NumPlayers, CardsSet, Mode, Seed] ). 
-
+dobbleGame(NumPlayers, CardsSet, Mode, Seed, [NumPlayers, CardsSet, Mode, Seed] ):-
+    Mode = "ModoUno".
 
 getNumPlayer([NumPlayers,_,_,_], NumPlayers). 
 
@@ -436,9 +438,29 @@ getModeGame([_,_,Mode,_], Mode).
 
 getSeedGame([_,_,_,Seed], Seed).
 
+%addUserGame(Usuario, DobbleGame , [ [Usuario|_] ,DobbleGame] ):-
+    
+
+dobbleGameRegister(Usuario, DobbleGame, [ Usuarios , DobbleGame] ):-
+    push(Usuario, Usuarios).
 
 
-dobbleGameRegister(Usuario, DobbleGame, [ [Usuario|_] , DobbleGame ]). 
+doobleTituloJuego(Titulo):-
+    atom_concat("JUEGO DOBBLE", " " , Titulo). 
+
+dobbleGameToString(DobbleGame, String):-
+    doobleTituloJuego(Titulo),
+    getNumPlayer(DobbleGame,NumPlayers),
+    atom_concat(" CANTIDAD DE JUGADORES: ", NumPlayers , NumPlayerString), 
+    getCardsSetByGame(DobbleGame, CardsSet),
+    cardsSetToString(CardsSet, CardsSetString),
+    getModeGame(DobbleGame, Mode),
+    atom_concat(" MODO DE JUEGO: ", Mode , ModeString), 
+    atom_concat( Titulo , NumPlayerString , TituloStringPlayers ), 
+    atom_concat( TituloStringPlayers , ModeString , ModoPlayerTituloString ),
+    atom_concat( ModoPlayerTituloString , " CARTAS DEL MAZO: " , DobbleGameString ),
+    atom_concat( DobbleGameString , CardsSetString , String ). 
+
 
 
  
