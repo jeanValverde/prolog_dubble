@@ -1,19 +1,10 @@
 
-%agrega un elemento a la lista 
-/**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
-*/
-push(Elemento, [Elemento|_]).
-
 %FUNCION SI ELEMNTO X PERTENECE A LA LISTA 
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: implmentacion propia mymember 
+*@relación: mymember
+*@entrada: Elemento X Lista
+*@salida: Lista 
 */
 mymember(X,[X|_]) :- !.
 mymember(X,[_|T]) :- mymember(X,T).
@@ -29,12 +20,11 @@ set([H|T],Out) :-
     set(T,Out).
 
 
-%ROTAR LA LISTA VAJO EL X NUMBER DENTRO DEL RANGO 
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: rotal la lista bajo el X numero dentro del rango de la lista 
+*@relación: append 
+*@entrada: Lista X Elemento, Rango  
+*@salida: Lista 
 */
 rotar(X,X,0):-!.
 rotar([X|Y], L, N):- 
@@ -43,12 +33,11 @@ rotar([X|Y], L, N):-
     rotar(Y1, L, N1).
 
 
-%RETONRA BOOLEAN SI EL ELMENTOS ESTA REPETIDO EN LA LISTA
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: elemetos repetidos de la lista 
+*@relación: mymember
+*@entrada: Lista 
+*@salida: boolean 
 */
 notRepetido([]):-!.
 notRepetido([ILista|ICola]):-
@@ -56,13 +45,11 @@ notRepetido([ILista|ICola]):-
     notRepetido(ICola).
 
 
-
-%OBTIENE UN ELEMENTO DE LA LISTA DONDE INDICE => 1
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: obtiene un elemento de la lista donde indice => 1
+*@relación: no cuenta 
+*@entrada: Lista X Indice 
+*@salida: Elemento 
 */
 getElement([Resultado|_],1,Resultado) :- !.
 getElement([_|Cola],IndiceAbuscar,Resultado) :-
@@ -71,12 +58,11 @@ getElement([_|Cola],IndiceAbuscar,Resultado) :-
     getElement(Cola,IndiceActual,Resultado).
 
 
-%OBTIENE UN ELEMENTO DE LA LISTA DONDE INDICE => 0
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: obtiene un elemento de la lista donde indice => 0
+*@relación: no cuenta 
+*@entrada: Lista X Indice 
+*@salida: Elemento 
 */
 getElement0([Resultado|_],0,Resultado) :- !.
 getElement0([_|Cola],IndiceAbuscar,Resultado) :-
@@ -85,13 +71,11 @@ getElement0([_|Cola],IndiceAbuscar,Resultado) :-
     getElement0(Cola,IndiceActual,Resultado).
 
 
-%CREA UNA LISTA A PARTIR DE SUB INDICES 
-%rem([0,2,5],3,[a,b,c,d,s,f],K).
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: crea una lista a partir de sub indices y los remplaza 
+*@relación: getElement
+*@entrada: Lista X NumE XLista Elementos
+*@salida: Lista reemplazada
 */
 rem(_,0,_,[]) :- !.
 rem([ICabeza|ICola], Hasta , Elementos , [Elemento|R] ) :- 
@@ -102,10 +86,10 @@ rem([ICabeza|ICola], Hasta , Elementos , [Elemento|R] ) :-
       
 
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: une dos listas 
+*@relación: no cuenta 
+*@entrada: Lista X Lista 
+*@salida: Lista unida 
 */
 mergeList([],_,[]):-!.
 mergeList([Car|Cdr],Caracter, [Car,Caracter|Resultado] ):-
@@ -113,11 +97,21 @@ mergeList([Car|Cdr],Caracter, [Car,Caracter|Resultado] ):-
 
 
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: ne dos listas 
+*@relación: no cuenta 
+*@entrada: Lista X Lista 
+*@salida: Lista unida 
 */
 unionList(_,[],_):-!.
 unionList([CL1|DL1],[CL2|DL2], [CL1,CL2|Resultado] ):-
     unionList(DL1,DL2, Resultado).
+
+
+%agrega un elemento a la lista 
+/**
+*@descripción: agrega un elemto a la lista 
+*@relación: no cuenta 
+*@entrada: Elemento 
+*@salida: Lista 
+*/
+push(Elemento, [Elemento|_]).
