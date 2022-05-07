@@ -3,7 +3,7 @@
 _Juego dobble en lenguaje prolog_
 
 
-Para realizar pruebas con DrRacket abrir el archivo main. 
+Para realizar pruebas con SWI-Prolog abrir el archivo main. 
 
 En la versión actual de este sistema se encuentran las siguientes funciones implementadas: 
 
@@ -142,7 +142,7 @@ for (k=0; k<= cards.length; k++) {
     console.log('carta(' + (k+1) + ',' + (n+1) + ', [' + cards[k] + ']).');
 }
 
-//resultado 
+//resultado para generar hechos en prolog desde js principal de la solución 
 
 carta(1,4, [1,2,3,4]).
 carta(2,4, [1,5,6,7]).
