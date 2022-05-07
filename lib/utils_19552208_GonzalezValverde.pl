@@ -61,3 +61,8 @@ rem([ICabeza|ICola], Hasta , Elementos , [Elemento|R] ) :-
 mergeList([],_,[]):-!.
 mergeList([Car|Cdr],Caracter, [Car,Caracter|Resultado] ):-
     mergeList(Cdr, Caracter , Resultado ).
+
+
+unionList(_,[],_):-!.
+unionList([CL1|DL1],[CL2|DL2], [CL1,CL2|Resultado] ):-
+    unionList(DL1,DL2, Resultado).
