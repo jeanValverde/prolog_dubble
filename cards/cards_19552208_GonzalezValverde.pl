@@ -2,7 +2,7 @@
 
 /**
 *@descripción: genera un carta x en el set 
-*@relación: 
+*@relación: carta, predicado rem en utils 
 *@entrada: Elementos X NumE X MaxC 
 *@salida: Carta generada 
 */
@@ -14,26 +14,15 @@ generarCarta(Elementos, NumE, MaxC, CartaNueva):-
 
 /**
 *@descripción: cartas en string 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@relación: mergeList en utils 
+*@entrada: carta 
+*@salida: carta en formato string 
 */
 cardString(Carta, CardString ):- 
     mergeList(Carta,"-",CartaSeparda),  
     atomics_to_string(CartaSeparda, CardStringSola), 
     atom_concat(" carta: ",CardStringSola,CardString). 
 
-
-/**
-*@descripción: carta en formato 
-*@relación: 
-*@entrada: 
-*@salida: 
-*/
-cardsSetToFormat([],[]):-!.
-cardsSetToFormat([Carta|CardsSet], [String|Resultado] ):- 
-    cardString(Carta, String ),
-    cardsSetToFormat(CardsSet, Resultado ).
 
 
 
