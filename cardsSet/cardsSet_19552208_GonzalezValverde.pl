@@ -30,6 +30,17 @@ cardsSetNthCard(CardsSet, Indice, Carta):-
     getElement0(CardsSet, Indice, Carta).
 
 
+%cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS), cardsSetNthCard(  CS, 2, C2), cardsSetFindTotalCards( C2, TC).
+cardsSetFindTotalCards(Carta, TC ):-
+    length(Carta,Cantidad),
+    f(Cantidad,TC).
+
+
+%cardsSet([a, b, c, d, e, f, g, h, … ], 3, 3, 92175, CS), cardsSetToString(CS, CS_STR), write(CS_STR).
+cardsSetToString(CardsSet, String):- 
+    cardsSetToFormat(CardsSet, CardsString ),
+    atomics_to_string(CardsString,String).
+
 %obtener elementos por carta 
 getElementByCardsSet([],_):-  !.
 getElementByCardsSet([Card|CardsSet] ,[Elemento|_] ) :- 
@@ -41,9 +52,4 @@ getElementByCardsSet([Card|CardsSet] ,[Elemento|_] ) :-
 %cardsSet([a, b, c, d, e, f, g, h ], 3, 3, 92175, CS), cardsSetMissingCards( CS, CS3).
 %cardsSetMissingCards(CardsSet, CardsSet):- 
 
-
-%cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS), cardsSetNthCard(  CS, 2, C2), cardsSetFindTotalCards( C2, TC).
-cardsSetFindTotalCards(Carta, TC ):-
-    length(Carta,Cantidad),
-    f(Cantidad,TC).
 

@@ -3,7 +3,7 @@
 
 %crea un juego dobble donde valida el modo de juego 
 dobbleGame(NumPlayers, CardsSet, Mode, Seed, [NumPlayers, CardsSet, Mode, Seed] ):-
-    Mode = "ModoUno".
+    Mode = "modoX".
 
 %obtiene el numero de jugadores 
 getNumPlayer([NumPlayers,_,_,_], NumPlayers). 

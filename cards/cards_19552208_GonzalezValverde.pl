@@ -20,8 +20,5 @@ cardsSetToFormat([Carta|CardsSet], [String|Resultado] ):-
     cardsSetToFormat(CardsSet, Resultado ).
 
 
-%cardsSet([a, b, c, d, e, f, g, h, … ], 3, 3, 92175, CS), cardsSetToString(CS, CS_STR), write(CS_STR).
-cardsSetToString(CardsSet, String):- 
-    cardsSetToFormat(CardsSet, CardsString ),
-    atomics_to_string(CardsString,String).
+
 
