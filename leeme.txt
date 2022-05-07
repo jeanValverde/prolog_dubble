@@ -1,0 +1,68 @@
+Estrutuctura del lab 
+
+-main   (Ejecucion de todas la pruebas)
+
+/cardSet
+       -TDA CARD
+       -TDA CARDS 
+/lib
+       -Utilities lstas 
+       -calculos de funciones
+/dobbleJs
+       -Algoritmo Optimizado para hechos
+       
+/dobbleGame
+       -TDA dobbleGame
+       
+       
+
+Ejemplos de uso: 
+
+
+* **cardsSet** 
+```
+cardsSet([ "A","B", "C", "D", "E", "F" ,"G" ], 3, 7, 1323 , CS ).
+
+[[A,F,G],[A,D,E],[A,B,C],[C,E,F],[C,D,G],[B,E,G],[B,D,F]]
+```
+
+
+* **cardsSetIsDobble** 
+```
+ cardsSet([ uno, dos, tres, cuatro, cinco, seis, siete ], 3, 7, 1323 , CS ), cardsSetIsDobble(CS). 
+ 
+ true
+```
+
+* **cardsSetNthCard** 
+```
+cardsSet([ "A","B", "C", "D", "E", "F" ,"G" ], 3, 7, 1323 , CS ), cardsSetNthCard(CS, 4, Carta).
+
+Carta = [A,B,C]
+```
+
+* **cardsSetFindTotalCards**
+```
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS), cardsSetNthCard(  CS, 2, C2), cardsSetFindTotalCards( C2, TC).
+
+TC = 7
+```
+
+* **cardsSetToString**
+```
+cardsSet([a, b, c, d, e, f, g, h, … ], 3, 3, 92175, CS), cardsSetToString(CS, CS_STR), write(CS_STR).
+
+carta: a-d-e- carta: a-b-c- carta: a-f-g-
+
+```
+
+* **dobbleGame**
+```
+
+
+```
+
+* **dobbleGameToString**
+```
+
+```
