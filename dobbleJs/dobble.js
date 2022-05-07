@@ -1,5 +1,5 @@
 
-let n = 2  //order of plane, must be a prime number
+let n = 8  //order of plane, must be a prime number
 let cards = [] //the deck of cards
 let card = []; //the current card we are building
 
