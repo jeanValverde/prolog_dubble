@@ -9,7 +9,6 @@
 %cardsSet
 :- consult('cardsSet/cardsSet_19552208_GonzalezValverde.pl').
 
-
 %game
 :- consult('dobbleGame/dobbleGame_19552208_GonzalezValverde.pl').
 
