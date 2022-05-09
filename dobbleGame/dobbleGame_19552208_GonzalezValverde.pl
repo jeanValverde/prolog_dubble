@@ -1,18 +1,17 @@
 
 %TDA JUEGO
 
+%game([NumPlayers, CardsSet, "modoA" , Seed, Usuarios, Status]).
+
 /**
 *@descripción: genera el juego de cartas donde se valida NumPlayes y modos de juego 
 *@relación: cardsSetIsDobble 
 *@entrada: NumPlayers X CardsSet X Modo X Seed
 *@salida: dobbleGame
 */
-dobbleGame(_, _, "modoX", _ , _ ). 
-dobbleGame(_, _, "modoA", _ , _ ). 
-dobbleGame(_, _, "modoB", _ , _ ). 
-dobbleGame(NumPlayers, CardsSet, Mode, Seed, [NumPlayers, CardsSet, Mode, Seed] ):-
-    number(NumPlayers),
-    cardsSetIsDobble(CardsSet). 
+dobbleGame(NumPlayers, CardsSet, "modoA", Seed , [NumPlayers, CardsSet, "modoA" , Seed, [], creado] ):-!. 
+dobbleGame(NumPlayers, CardsSet, "modoB", Seed , [NumPlayers, CardsSet, "modoB" , Seed,  [], creado] ):-!. 
+dobbleGame(NumPlayers, CardsSet, "modoX", Seed , [NumPlayers, CardsSet, "modoX" , Seed, [], creado] ):-!. 
 
 
 /**
@@ -21,7 +20,7 @@ dobbleGame(NumPlayers, CardsSet, Mode, Seed, [NumPlayers, CardsSet, Mode, Seed] 
 *@entrada: dobbleGame
 *@salida: NumPlayers (number)
 */
-getNumPlayer([NumPlayers,_,_,_], NumPlayers). 
+getNumPlayer([NumPlayers,_,_,_,_,_], NumPlayers). 
 
 
 /**
@@ -30,7 +29,7 @@ getNumPlayer([NumPlayers,_,_,_], NumPlayers).
 *@entrada: dobbleGame
 *@salida: CardsSet
 */
-getCardsSetByGame([_,CardsSet,_,_], CardsSet).
+getCardsSetByGame([_,CardsSet,_,_,_,_], CardsSet).
 
 
 /**
@@ -39,7 +38,7 @@ getCardsSetByGame([_,CardsSet,_,_], CardsSet).
 *@entrada: dobbleGame 
 *@salida: Modo
 */
-getModeGame([_,_,Mode,_], Mode).
+getModeGame([_,_,Mode,_,_,_], Mode).
 
 
 /**
@@ -48,24 +47,72 @@ getModeGame([_,_,Mode,_], Mode).
 *@entrada: dobbleGame
 *@salida: Seed
 */
-getSeedGame([_,_,_,Seed], Seed).
+getSeedGame([_,_,_,Seed,_,_], Seed).
+
 
 /**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
+*@descripción: obtiene los usuarios 
+*@relación: no cuenta 
+*@entrada: dobbleGame
+*@salida: Usuarios
 */
-%addUserGame(Usuario, DobbleGame , [ [Usuario|_] ,DobbleGame] ):-
-    
+getUsuariosGame([_,_,_,_,Usuarios,_], Usuarios).
+
 /**
-*@descripción: registra un usuario al juego 
+*@descripción: obtener el estado de un juego 
+*@relación: no cuenta 
+*@entrada: dobbleGame
+*@salida: Status
+*/
+getStatusGame([_,_,_,_,_,Status], Status).
+
+
+%cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 2, CS, "modoX", 4222221, G), dobbleGameRegister( "user1" , G , GR).
+/**
+*@descripción: registra un usuario al juego cuado hay cupos en el juego 
 *@relación:  
 *@entrada: Usuario X dobbleGame 
 *@salida: dobbleGameRegister
 */
-dobbleGameRegister(Usuario, DobbleGame, [ Usuarios , DobbleGame] ):-
-    push(Usuario, Usuarios).
+dobbleGameRegister( Usuario ,  [NumPlayers, CardsSet, Modo , Seed, Usuarios, Status]  , DobbleGame  ):-
+    length(Usuarios, CountUsuariosCurrent), 
+    CountUsuariosCurrent < NumPlayers, 
+    DobbleGame = [NumPlayers, CardsSet, Modo , Seed, [ [Usuario,0] |Usuarios], Status]. 
+
+
+/**
+*@descripción: define el turno 
+*@relación: Game
+*@entrada: Usuario X dobbleGame 
+*@salida: Usuario
+*/ 
+dobbleGameWhoseTurnIsIt(DobbleGame, Usuario):-
+    getUsuariosGame(DobbleGame, Usuarios ),
+    member(Usuario, Usuarios ), 
+    length(Usuarios, CantidadUsuarios),
+    random_between(1,CantidadUsuarios,Rotacion),   
+    rotar(Usuarios, [Usuario|_], Rotacion ). 
+
+
+/**
+*@descripción: obtiene el estado de juego 
+*@relación:  
+*@entrada: Usuario X dobbleGame 
+*@salida: dobbleGameRegister
+*/ 
+dobbleGameStatus(DobbleGame, Status):-
+    getStatusGame(DobbleGame, Status).
+
+
+/**
+*@descripción: Obtiene un puntaje de un usuario 
+*@relación:  
+*@entrada: DobbleGame X Username X  Score
+*@salida: dobbleGameRegister
+*/ 
+dobbleGameScore(DobbleGame, Username, Score) :- 
+    getUsuariosGame(DobbleGame, [[Username,Score]|_] ). 
+
 
 /**
 *@descripción: crea el titulo de juego 
@@ -96,13 +143,7 @@ dobbleGameToString(DobbleGame, String):-
     atom_concat( DobbleGameString , CardsSetString , String ). 
 
 
-/**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
-*/
-%dobbleGameWhoseTurnIsIt():-!.
+ 
 
 /**
 *@descripción: 
@@ -112,26 +153,8 @@ dobbleGameToString(DobbleGame, String):-
 */
 %dobbleGamePlay():-.!
 
-/**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
-*/
-%dobbleGameStatus():-.!
+ 
 
-/**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
-*/
-%dobbleGameScore():-.!
+ 
 
-/**
-*@descripción: 
-*@relación: 
-*@entrada: 
-*@salida: 
-*/
-%dobbleGameToString():-.!
+ 
