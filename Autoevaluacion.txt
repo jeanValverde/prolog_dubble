@@ -11,7 +11,7 @@ cardsSetToString -> LISTO
 dobbleGame  -> LISTO 
 dobbleGameRegister -> LISTO
 dobbleGameWhoseTurnIsIt -> IMCOMPLETO 
-dobbleGamePlay -> 
+dobbleGamePlay -> IMCOMPLETO
 dobbleGameStatus -> LISTO 
 dobbleGameScore -> LISTO 
 dobbleGameToString -> LISTO 
