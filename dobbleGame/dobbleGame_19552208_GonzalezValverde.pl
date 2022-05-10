@@ -9,9 +9,9 @@
 *@entrada: NumPlayers X CardsSet X Modo X Seed
 *@salida: dobbleGame
 */
-dobbleGame(NumPlayers, CardsSet, "modoA", Seed , [NumPlayers, CardsSet, "modoA" , Seed, [], creado] ):-!. 
-dobbleGame(NumPlayers, CardsSet, "modoB", Seed , [NumPlayers, CardsSet, "modoB" , Seed,  [], creado] ):-!. 
-dobbleGame(NumPlayers, CardsSet, "modoX", Seed , [NumPlayers, CardsSet, "modoX" , Seed, [], creado] ):-!. 
+dobbleGame(NumPlayers, CardsSet, "modoA", Seed , [NumPlayers, CardsSet, "modoA" , Seed, [], created] ):-!. 
+dobbleGame(NumPlayers, CardsSet, "modoB", Seed , [NumPlayers, CardsSet, "modoB" , Seed,  [], created] ):-!. 
+dobbleGame(NumPlayers, CardsSet, "modoX", Seed , [NumPlayers, CardsSet, "modoX" , Seed, [], created] ):-!. 
 
 
 /**
@@ -58,6 +58,20 @@ getSeedGame([_,_,_,Seed,_,_], Seed).
 */
 getUsuariosGame([_,_,_,_,Usuarios,_], Usuarios).
 
+
+/**
+*@descripción: obtiene un usuario 
+*@relación: no cuenta 
+*@entrada: dobbleGame
+*@salida: Usuario
+*/
+getUsuarioGameByName([_,_,_,_,[[Username,Puntaje,Turno]|_],_], Username, Usuario ):-
+    Usuario = [Username,Puntaje,Turno], !.
+
+getUsuarioGameByName([_,_,_,_,[Usuario|Usuarios],_], Username , Usuario):-
+    getUsuarioGameByName([_,_,_,_,Usuarios,_], Username, Usuario).
+        
+
 /**
 *@descripción: obtener el estado de un juego 
 *@relación: no cuenta 
@@ -65,6 +79,7 @@ getUsuariosGame([_,_,_,_,Usuarios,_], Usuarios).
 *@salida: Status
 */
 getStatusGame([_,_,_,_,_,Status], Status).
+
 
 
 %cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 2, CS, "modoX", 4222221, G), dobbleGameRegister( "user1" , G , GR).
@@ -77,7 +92,7 @@ getStatusGame([_,_,_,_,_,Status], Status).
 dobbleGameRegister( Usuario ,  [NumPlayers, CardsSet, Modo , Seed, Usuarios, Status]  , DobbleGame  ):-
     length(Usuarios, CountUsuariosCurrent), 
     CountUsuariosCurrent < NumPlayers, 
-    DobbleGame = [NumPlayers, CardsSet, Modo , Seed, [ [Usuario,0] |Usuarios], Status]. 
+    DobbleGame = [NumPlayers, CardsSet, Modo , Seed, [ [Usuario,0,pass]|Usuarios], Status]. 
 
 
 /**
@@ -86,12 +101,15 @@ dobbleGameRegister( Usuario ,  [NumPlayers, CardsSet, Modo , Seed, Usuarios, Sta
 *@entrada: Usuario X dobbleGame 
 *@salida: Usuario
 */ 
-dobbleGameWhoseTurnIsIt(DobbleGame, Usuario):-
-    getUsuariosGame(DobbleGame, Usuarios ),
-    member(Usuario, Usuarios ), 
-    length(Usuarios, CantidadUsuarios),
-    random_between(1,CantidadUsuarios,Rotacion),   
-    rotar(Usuarios, [Usuario|_], Rotacion ). 
+
+dobbleGameWhoseTurnIsIt([_ , _ , _ , _, [ [Username, _ , _ ] | _ ] , _ ], [Username,_,shift] ):-!. 
+
+dobbleGameWhoseTurnIsIt([_, _, _ , _, [[_,_,pass]|Usuarios] , _], Username):- 
+    dobbleGameWhoseTurnIsIt( [_, _, _ , _, Usuarios , _ ] , Username  ).
+
+    
+
+
 
 
 /**
@@ -111,7 +129,7 @@ dobbleGameStatus(DobbleGame, Status):-
 *@salida: dobbleGameRegister
 */ 
 dobbleGameScore(DobbleGame, Username, Score) :- 
-    getUsuariosGame(DobbleGame, [[Username,Score]|_] ). 
+    getUsuariosGame(DobbleGame, [[Username,Score,_]|_] ). 
 
 
 /**
@@ -122,6 +140,7 @@ dobbleGameScore(DobbleGame, Username, Score) :-
 */
 doobleTituloJuego(Titulo):-
     atom_concat("JUEGO DOBBLE", " " , Titulo). 
+
 
 /**
 *@descripción: genera dobbleGame en formato String 
@@ -143,18 +162,51 @@ dobbleGameToString(DobbleGame, String):-
     atom_concat( DobbleGameString , CardsSetString , String ). 
 
 
- 
+
 
 /**
-*@descripción: 
+*@descripción: Solo se hace el volteo inicial de cartas según la modalidad de juego activa y no se pasa el turno
+*@relación: CardsSet
+*@entrada: Game X Null X Game
+*@salida: Game
+*/
+dobbleGamePlay([NumPlayers, CardsSet, Modo , Seed, Usuarios , Status] , null , GameChangeStatusPtos ):- 
+    length(CardsSet, MaxC),
+    random_between(1,MaxC,Rotacion),  
+    rotar(CardsSet, CardsSetVolteo , Rotacion), 
+    GameChangeStatusPtos = [NumPlayers, CardsSetVolteo , Modo , Seed, Usuarios , Status]. 
+
+
+
+/**
+*@descripción: indica que se debe realizar la comparación entre las cartas volteadas a partir del elemento indicado por el usuario.
 *@relación: 
 *@entrada: 
 *@salida: 
 */
-%dobbleGamePlay():-.!
+%dobbleGamePlay(DobbleGame, [spotIt, Usuario, Elemento], GameChangeStatusPtos ). 
 
- 
 
- 
 
- 
+/**
+*@descripción: Indica que se debe pasar el turno, procurando volver las cartas a su sitio de acuerdo a la modalidad de juego
+*@relación: 
+*@entrada: 
+*@salida: 
+*/
+%dobbleGamePlay(DobbleGame, [pass], GameChangeStatusPtos ). 
+
+
+
+
+/**
+*@descripción: Indica que da término a la partida cambiando el estado del juego a Terminado e indicando ganador/perdedor/empate
+*@relación: 
+*@entrada: 
+*@salida: 
+*/
+dobbleGamePlay([NumPlayers, CardsSet, Modo , Seed, Usuarios , _], [finish] , GameChangeStatusPtos ):- 
+    GameChangeStatusPtos = [NumPlayers, CardsSet, Modo , Seed, Usuarios , finish]. 
+
+
+
