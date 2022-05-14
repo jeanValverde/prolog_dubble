@@ -1,20 +1,24 @@
-Estrutuctura del lab 
+# Dobble en PROLOG 
 
--main   (Ejecucion de todas la pruebas)
+_Juego dobble en lenguaje prolog_
 
-/cardSet
-       -TDA CARD
-       -TDA CARDS 
-/lib
-       -Utilities lstas 
-       -calculos de funciones
-/dobbleJs
-       -Algoritmo Optimizado para hechos
-       
-/dobbleGame
-       -TDA dobbleGame
-       
-       
+
+Para realizar pruebas con SWI-Prolog abrir el archivo main. 
+
+En la versión actual de este sistema se encuentran las siguientes funciones implementadas: 
+
+* **cardsSet** 
+* **cardsSetIsDobble** 
+* **cardsSetNthCard** 
+* **cardsSetFindTotalCards** 
+* **cardsSetToString** 
+* **dobbleGame**
+* **dobbleGameRegister**
+* **dobbleGameWhoseTurnIsIt**
+* **dobbleGameStatus**
+* **dobbleGameScore**
+* **dobbleGameToString**
+* **dobbleGamePlay**
 
 Ejemplos de uso: 
 
@@ -58,11 +62,159 @@ carta: a-d-e- carta: a-b-c- carta: a-f-g-
 
 * **dobbleGame**
 ```
+cardsSet([a, b, c, d, e, f, g ], 3, 3, 92175, CS), dobbleGame( 4, CS, "modoX" , 4222221, G), write(G).
 
+G = [4, [[a, d, e], [a, b, c], [a, f, g]], "modoX", 4222221, [], created].
+
+```
+
+* **dobbleGameRegister**
+```
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3).
+
+G3 = [4, [[a, d, e], [a, b, c], [a, f, g]], "modoX", 4222221, [["user3", 0, pass], ["user1", 0|...]], created].
+
+```
+
+
+* **dobbleGameWhoseTurnIsIt**
+```
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameWhoseTurnIsIt(G3, UsuarioTurno), write(UsuarioTurno).
+
+UsuarioTurno = ["user3", _, shift].
+
+```
+
+* **dobbleGameStatus**
+```
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameStatus(G,Status).
+
+Status = created.
+
+```
+
+* **dobbleGameScore**
+```
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameScore(G3, "user3", Score ).
+
+Score = 0.
 
 ```
 
 * **dobbleGameToString**
 ```
 
+ cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameToString(G, Str), display(Str).
+
+Str = 'JUEGO DOBBLE  CANTIDAD DE JUGADORES: 4 MODO DE JUEGO: modoX CARTAS DEL MAZO:  carta: a-f-g- carta: a-d-e- carta: a-b-c-'.
+
+
 ```
+
+* **dobbleGamePlay**
+```
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGamePlay(G3, null, G4).
+
+G4 = [4, [[a, b, c], [a, f, g], [a, d, e]], "modoX", 4222221, [["user3", 0, pass], ["user1", 0|...]], flip].
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGamePlay(G3, [finish] , G4).
+
+G4 = [4, [[a, f, g], [a, d, e], [a, b, c]], "modoX", 4222221, [["user3", 0, pass], ["user1", 0|...]], finish].
+
+```
+
+
+Árbol de directorio del repositorio:
+
+```
+│   Autoevaluacion.txt
+│   main_19552208_GonzalezValverde.pl
+│   README.md
+│
+├───cards
+│       cardsHechos_19552208_GonzalezValverde.pl
+│       cards_19552208_GonzalezValverde.pl
+│
+├───cardsSet
+│       cardsSet_19552208_GonzalezValverde.pl
+│
+├───dobbleGame
+│       dobbleGame_19552208_GonzalezValverde.pl
+│
+├───dobbleJs
+│       dobble.js
+│
+└───lib
+        math_19552208_GonzalezValverde.pl
+        utils_19552208_GonzalezValverde.pl
+```
+
+
+Algoritmo para implementar esta solución fue de: 
+
+* [The Dobble Algorithm](https://mickydore.medium.com/the-dobble-algorithm-b9c9018afc52)
+* [DOBBLE: Un juego de mesa que esconde un tesoro matemático](https://www.etilmercurio.com/em/dobble-un-juego-de-mesa-que-esconde-un-tesoro-matematico)
+
+```
+
+let n = 8  //order of plane, must be a prime number
+let cards = [] //the deck of cards
+let card = []; //the current card we are building
+
+//to start, we build the first card
+for (i = 1; i <= n+1; i++) {
+    card.push(i)
+}
+cards.push(card)
+
+
+//then we build the next n number of cards
+for (j=1; j<=n; j++) {
+    card = []
+    card.push(1)
+    
+    for (k=1; k<=n; k++) {
+        card.push(n * j + (k+1))
+    }
+    cards.push(card)
+}
+
+
+//finally we build the next n² number of cards
+for (i= 1; i<=n; i++) {
+    for (j=1; j<=n; j++) {
+        card = []
+        card.push(i+1)
+        
+        for (k=1; k<= n; k++) {
+            card.push(n+2+n*(k-1)+(((i-1)*(k-1)+j-1)%n))
+        }
+        cards.push(card)
+    }
+}
+ 
+for (k=0; k<= cards.length; k++) {
+    console.log('carta(' + (k+1) + ',' + (n+1) + ', [' + cards[k] + ']).');
+}
+
+//resultado para generar hechos en prolog desde js principal de la solución 
+
+carta(1,4, [1,2,3,4]).
+carta(2,4, [1,5,6,7]).
+carta(3,4, [1,8,9,10]).
+carta(4,4, [1,11,12,13]).
+carta(5,4, [2,5,8,11]).
+carta(6,4, [2,6,9,12]).
+carta(7,4, [2,7,10,13]).
+carta(8,4, [3,5,9,13]).
+carta(9,4, [3,6,10,11]).
+carta(10,4, [3,7,8,12]).
+carta(11,4, [4,5,10,12]).
+carta(12,4, [4,6,8,13]).
+carta(13,4, [4,7,9,11]).
+
+```
+
