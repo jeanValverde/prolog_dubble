@@ -101,9 +101,7 @@ dobbleGameRegister( Usuario ,  [NumPlayers, CardsSet, Modo , Seed, Usuarios, Sta
 *@entrada: Usuario X dobbleGame 
 *@salida: Usuario
 */ 
-
 dobbleGameWhoseTurnIsIt([_ , _ , _ , _, [ [Username, _ , _ ] | _ ] , _ ], [Username,_,shift] ):-!. 
-
 dobbleGameWhoseTurnIsIt([_, _, _ , _, [[_,_,pass]|Usuarios] , _], Username):- 
     dobbleGameWhoseTurnIsIt( [_, _, _ , _, Usuarios , _ ] , Username  ).
 
@@ -128,8 +126,9 @@ dobbleGameStatus(DobbleGame, Status):-
 *@entrada: DobbleGame X Username X  Score
 *@salida: dobbleGameRegister
 */ 
-dobbleGameScore(DobbleGame, Username, Score) :- 
-    getUsuariosGame(DobbleGame, [[Username,Score,_]|_] ). 
+dobbleGameScore([_ , _ , _ , _, [ [Username, Score , _ ] | _ ] , _ ], Username, Score ):-!.
+dobbleGameScore([_ , _ , _ , _, [ [_ , _ , _ ] | Usuarios ] , _ ], Username, Score) :- 
+    dobbleGameScore([_ , _ , _ , _, Usuarios , _ ], Username, Score). 
 
 
 /**
@@ -170,11 +169,11 @@ dobbleGameToString(DobbleGame, String):-
 *@entrada: Game X Null X Game
 *@salida: Game
 */
-dobbleGamePlay([NumPlayers, CardsSet, Modo , Seed, Usuarios , Status] , null , GameChangeStatusPtos ):- 
+dobbleGamePlay([NumPlayers, CardsSet, Modo , Seed, Usuarios , _ ] , null , GameChangeStatusPtos ):- 
     length(CardsSet, MaxC),
     random_between(1,MaxC,Rotacion),  
     rotar(CardsSet, CardsSetVolteo , Rotacion), 
-    GameChangeStatusPtos = [NumPlayers, CardsSetVolteo , Modo , Seed, Usuarios , Status]. 
+    GameChangeStatusPtos = [NumPlayers, CardsSetVolteo , Modo , Seed, Usuarios , flip ]. 
 
 
 
