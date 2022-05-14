@@ -59,12 +59,68 @@ carta: a-d-e- carta: a-b-c- carta: a-f-g-
 
 * **dobbleGame**
 ```
+cardsSet([a, b, c, d, e, f, g ], 3, 3, 92175, CS), dobbleGame( 4, CS, "modoX" , 4222221, G), write(G).
 
+G = [4, [[a, d, e], [a, b, c], [a, f, g]], "modoX", 4222221, [], created].
+
+```
+
+* **dobbleGameRegister**
+```
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3).
+
+G3 = [4, [[a, d, e], [a, b, c], [a, f, g]], "modoX", 4222221, [["user3", 0, pass], ["user1", 0|...]], created].
+
+```
+
+
+* **dobbleGameWhoseTurnIsIt**
+```
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameWhoseTurnIsIt(G2, UsuarioTurno).
+
+UsuarioTurno = ["user1", _, shift].
+
+```
+
+* **dobbleGameStatus**
+```
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameStatus(G,Status).
+
+Status = created.
 
 ```
 
 * **dobbleGameToString**
 ```
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameScore(G3, "user3", Score ).
+
+Score = 0.
+
+```
+
+* **dobbleGameToString**
+```
+
+ cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameToString(G, Str), display(Str).
+
+Str = 'JUEGO DOBBLE  CANTIDAD DE JUGADORES: 4 MODO DE JUEGO: modoX CARTAS DEL MAZO:  carta: a-f-g- carta: a-d-e- carta: a-b-c-'.
+
+
+```
+
+
+* **dobbleGamePlay**
+```
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGamePlay(G3, null, G4).
+
+G4 = [4, [[a, b, c], [a, f, g], [a, d, e]], "modoX", 4222221, [["user3", 0, pass], ["user1", 0|...]], flip].
+
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGamePlay(G3, [finish] , G4).
+
+G4 = [4, [[a, f, g], [a, d, e], [a, b, c]], "modoX", 4222221, [["user3", 0, pass], ["user1", 0|...]], finish].
 
 ```
 
