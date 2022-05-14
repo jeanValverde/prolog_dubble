@@ -205,7 +205,7 @@ dobbleGamePlay([NumPlayers, CardsSet, Modo , Seed, Usuarios , _ ] , null , GameC
 *@salida: 
 */
 dobbleGamePlay([NumPlayers, CardsSet, Modo , Seed, Usuarios , _], [finish] , GameChangeStatusPtos ):- 
-    GameChangeStatusPtos = [NumPlayers, CardsSet, Modo , Seed, Usuarios , finish]. 
+    GameChangeStatusPtos = [NumPlayers, CardsSet, Modo , Seed, Usuarios , finish].
 
 
 

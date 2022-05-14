@@ -12,48 +12,52 @@
 %game
 :- consult('dobbleGame/dobbleGame_19552208_GonzalezValverde.pl').
 
-%test para pruebas 
 
+%test
 
-%crea un set de cartas donde los elementos pueden ser numeros, atomos o string 
-:- write(" cardsSet: "). 
+%cardsSet
 :- cardsSet([ "A","B", "C", "D", "E", "F" ,"G" ], 3, 7, 1323 , CS ), write(CS).
+:- cardsSet([ uno, dos, tres, cuatro, cinco, seis, siete ], 3, 7, 1323 , CS ),  write(CS).
+:- cardsSet([ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ], 4, 7, 1323 , CS ),  write(CS).
 
-
-%valida si un cards set es valido 
+%cardsSetIsDobble
 :- cardsSet([ uno, dos, tres, cuatro, cinco, seis, siete ], 3, 7, 1323 , CS ), cardsSetIsDobble(CS). 
 
+%cardsSetNthCard
+:- cardsSet([ "A","B", "C", "D", "E", "F" ,"G" ], 3, 7, 1323 , CS ), cardsSetNthCard(CS, 4, Carta), write(Carta).
 
-%obtener una carta del mazo cardsSetNthCard 
-%cardsSet([ "A","B", "C", "D", "E", "F" ,"G" ], 3, 7, 1323 , CS ), cardsSetNthCard(CS, 4, Carta).
-:- write("   cardsSetNthCard  ").
-:- cardsSet([ "A","B", "C", "D", "E", "F" ,"G" ], 3, 7, 1323 , CS ), 
-    write(CS), 
-    write(" cardsSetNthCard 4: "), 
-    cardsSetNthCard(CS, 4, Carta), 
-    write(Carta).
+%cardsSetFindTotalCards
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS), cardsSetNthCard(  CS, 2, C2), cardsSetFindTotalCards( C2, TC), write(TC).
 
-
-%obtiene la cantida de cartas por los elementos 
-% cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS), cardsSetNthCard(  CS, 2, C2), cardsSetFindTotalCards( C2, TC).
-:- write("   cardsSetFindTotalCards  ").
-:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS), 
-    write(CS),
-    cardsSetNthCard(  CS, 2, C2), 
-    write(" cardsSetNthCard 2: "),
-    write(C2),  
-    cardsSetFindTotalCards( C2, TC), 
-    write(" cardsSetFindTotalCards: "),
-    write(TC).
-
-
-%imprime el set de carta en formato 
-%cardsSet([a, b, c, d, e, f, g, h, … ], 3, 3, 92175, CS), cardsSetToString(CS, CS_STR), write(CS_STR).
-:- write("   cardsSetToString  ").
+%cardsSetToString
 :- cardsSet([a, b, c, d, e, f, g, h ], 3, 3, 92175, CS), cardsSetToString(CS, CS_STR), write(CS_STR).
 
-
-%PRUEBAS PARA GAME 
-%cardsSet([a, b, c, d, e, f, g, h ], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX" , 4222221, G).  
-:- write("  dobbleGame  ").
+%dobbleGame
 :- cardsSet([a, b, c, d, e, f, g ], 3, 3, 92175, CS), dobbleGame( 4, CS, "modoX" , 4222221, G), write(G).
+
+%dobbleGameRegister
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3),  write(G3).
+
+%dobbleGameWhoseTurnIsIt
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameWhoseTurnIsIt(G3, UsuarioTurno), write(UsuarioTurno).
+
+%dobbleGameStatus
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameStatus(G,Status), write(Status).
+
+%dobbleGameScore
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameScore(G3, "user3", Score ), write(Score).
+
+%dobbleGameToString
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameToString(G, Str), display(Str). 
+
+%dobbleGamePlay (null)
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGamePlay(G3, null, G4), write(G4).
+
+%dobbleGamePlay [finish]
+:- cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGamePlay(G3, [finish] , G4), write(G4).
+
+
+
+
+
+
