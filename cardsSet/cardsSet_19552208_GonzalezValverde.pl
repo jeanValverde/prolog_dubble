@@ -6,7 +6,7 @@
 */
 generarMazo(_,_,0,[]) :- !.
 generarMazo(Elementos, NumE, MaxC, [Carta|Cartas]):-
-    MaxC >= 0, 
+    MaxC > 0, 
     generarCarta(Elementos, NumE, MaxC, Carta), 
     SiguienteCarta is MaxC-1, 
     generarMazo(Elementos, NumE, SiguienteCarta, Cartas).
@@ -20,7 +20,7 @@ generarMazo(Elementos, NumE, MaxC, [Carta|Cartas]):-
 *@salida: cardsSet 
 */
 cardsSet(Elementos, NumE, MaxC, Seed , CS ) :-
-    MaxC =< 10,
+    NumE =< 10,
     number(Seed), 
     random_between(1,MaxC,Rotacion),  
     generarMazo(Elementos, NumE, MaxC, CardsSet), 
