@@ -12,10 +12,13 @@ En la versión actual de este sistema se encuentran las siguientes funciones imp
 * **cardsSetNthCard** 
 * **cardsSetFindTotalCards** 
 * **cardsSetToString** 
-
 * **dobbleGame**
+* **dobbleGameRegister**
+* **dobbleGameWhoseTurnIsIt**
+* **dobbleGameStatus**
+* **dobbleGameScore**
 * **dobbleGameToString**
-
+* **dobbleGamePlay**
 
 Ejemplos de uso: 
 
@@ -91,7 +94,7 @@ Status = created.
 
 ```
 
-* **dobbleGameToString**
+* **dobbleGameScore**
 ```
 
 cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameScore(G3, "user3", Score ).
@@ -109,7 +112,6 @@ Str = 'JUEGO DOBBLE  CANTIDAD DE JUGADORES: 4 MODO DE JUEGO: modoX CARTAS DEL MA
 
 
 ```
-
 
 * **dobbleGamePlay**
 ```
