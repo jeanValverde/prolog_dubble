@@ -80,9 +80,9 @@ G3 = [4, [[a, d, e], [a, b, c], [a, f, g]], "modoX", 4222221, [["user3", 0, pass
 * **dobbleGameWhoseTurnIsIt**
 ```
 
-cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameWhoseTurnIsIt(G2, UsuarioTurno).
+cardsSet([a, b, c, d, e, f, g, h], 3, 3, 92175, CS),  dobbleGame( 4, CS, "modoX", 4222221, G), dobbleGameRegister( "user1", G, G2), dobbleGameRegister("user3" , G2 , G3), dobbleGameWhoseTurnIsIt(G3, UsuarioTurno), write(UsuarioTurno).
 
-UsuarioTurno = ["user1", _, shift].
+UsuarioTurno = ["user3", _, shift].
 
 ```
 
