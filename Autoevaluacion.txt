@@ -1,18 +1,21 @@
 REQUERIMIENTOS FUNCIONALES:
 
-cardsSet   -> LISTO 
-cardsSetIsDobble -> LISTO 
-cardsSetNthCard -> LISTO 
-cardsSetFindTotalCards -> LISTA
-cardsSetMissingCards -> 
-cardsSetToString -> LISTO 
+cardsSet                -> 1 
+cardsSetIsDobble        -> 1 
+cardsSetNthCard         -> 1 
+cardsSetFindTotalCards  -> 1
+cardsSetMissingCards    -> 0
+cardsSetToString        -> 1 
+dobbleGame              -> 1 
+dobbleGameRegister      -> 1
+dobbleGameWhoseTurnIsIt -> 0.5 
+dobbleGamePlay          -> 0.5
+dobbleGameStatus        -> 1 
+dobbleGameScore         -> 1 
+dobbleGameToString      -> 1 
 
+REQUERIMIENTOS NO FUNCIONALES: 
 
-dobbleGame  -> LISTO 
-dobbleGameRegister -> LISTO
-dobbleGameWhoseTurnIsIt -> IMCOMPLETO 
-dobbleGamePlay -> IMCOMPLETO
-dobbleGameStatus -> LISTO 
-dobbleGameScore -> LISTO 
-dobbleGameToString -> LISTO 
-
+DOCUMENTACION           -> 1
+ORGANIZACION            -> 1
+HISTORIA                -> 1
