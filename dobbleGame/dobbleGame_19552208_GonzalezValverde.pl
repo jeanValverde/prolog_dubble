@@ -101,7 +101,7 @@ dobbleGameRegister( Usuario ,  [NumPlayers, CardsSet, Modo , Seed, Usuarios, Sta
 *@entrada: Usuario X dobbleGame 
 *@salida: Usuario
 */ 
-dobbleGameWhoseTurnIsIt([_ , _ , _ , _, [ [Username, _ , _ ] | _ ] , _ ], [Username,_,shift] ):-!. 
+dobbleGameWhoseTurnIsIt([_ , _ , _ , _, [ [Username, _ , _ ] | _ ] , _ ], Username ):-!. 
 dobbleGameWhoseTurnIsIt([_, _, _ , _, [[_,_,pass]|Usuarios] , _], Username):- 
     dobbleGameWhoseTurnIsIt( [_, _, _ , _, Usuarios , _ ] , Username  ).
 
